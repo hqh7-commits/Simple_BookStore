@@ -7,6 +7,7 @@ B1: Mở Microsoft SQL Server kết nối và sao chép Server name
 ![image](https://github.com/user-attachments/assets/ee5b6775-2628-466d-929e-6c4f6e58ebf5)
 
 B2: Trong thanh tìm kiếm của window gõ: edit environment variables for your account và thêm biến môi trường với tên biến là DB_SERVER và giá trị là tên của server (Server name)
+
 ![image](https://github.com/user-attachments/assets/4868416a-a327-4876-8c87-f2170342729a)
 ![image](https://github.com/user-attachments/assets/ab77c1ab-3d51-4653-9708-df9fea492bc7)
 
