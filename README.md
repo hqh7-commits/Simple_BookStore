@@ -17,6 +17,7 @@ B3: Mở project và nhấp vào Tools -> NuGet Package Manager -> Package Manag
 ![462578783_487452403787140_3719223035962740916_n](https://github.com/user-attachments/assets/b5fba1b4-3b15-449e-bd55-3a1a40cf9afd)
 
 B4: Gõ update-database để khởi tạo cơ sở dữ liệu mặc định
+
 B5: Bấm F5 chạy project sẽ khởi tạo sẵn tài khoản admin trong database
 
 email: admin@gmail.com
