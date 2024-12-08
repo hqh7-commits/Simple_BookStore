@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241130101115_AddCompanyToUser")]
-    partial class AddCompanyToUser
+    [Migration("20241208185941_ReuploadDb")]
+    partial class ReuploadDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -337,6 +337,111 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Models.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderHeaderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderHeaderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("Models.OrderHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Carrier")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("OrderTotal")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("PaymentDueDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ShippingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrackingNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("OrderHeaders");
+                });
+
             modelBuilder.Entity("Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -390,87 +495,114 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Author = "Billy Spark",
+                            Author = "Arthur Conan Doyle",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "SWD9999001",
-                            ImageUrl = "",
+                            Description = "Tên tôi là Sherlock Holmes. Công việc của tôi là để biết những gì mà người khác không biết…\r\n\r\nChỉ từ một giọt nước, người giỏi suy luận có thể suy ra khả năng của một đại dương hoặc một thác nước, tuy chưa bao giờ tận mắt nhìn thấy chúng. Như vậy, toàn bộ cuộc sống là một chuỗi mắt xích rộng lớn mà ta có thể biết bản chất của nó, nếu ta biết được một mắt xích…\r\n\r\nSherlock Holmes – thám tử tư vĩ đại nhất trong văn học thế giới. Lạnh lùng, quyết đoán, dũng cảm, giàu lòng chính nghĩa, tài quan sát đáng kinh ngạc, khả năng suy luận tuyệt vời nhờ vào những chứng cứ khó ngờ nhất khám phá ra chân tướng ẩn giấu sau những sự thực bị bẻ cong hình thành một kinh điển bất hủ trong lĩnh vực văn học trinh thám.\r\n\r\nSherlock Holmes đã xuất hiện trong 4 tiểu thuyết và 56 truyện ngắn của nhà văn Conan Doyle. Hầu như tất cả các tác phẩm đều được viết dưới dạng ghi chép của bác sĩ John H. Watson, người bạn thân thiết và người ghi chép tiểu sử của Holmes, chỉ có 2 tác phẩm được viết dưới dạng ghi chép của chính Holmes và 2 tác phẩm khác dưới dạng ghi chép của người thứ 3.",
+                            ISBN = "8935095626915",
+                            ImageUrl = "/images/product/sherlock_holmes.jpg",
                             ListPrice = 99000,
-                            Price = 90000,
-                            Price100 = 80000,
-                            Price50 = 85000,
-                            Title = "Fortune of Time"
+                            Price = 88000,
+                            Price100 = 66000,
+                            Price50 = 77000,
+                            Title = "Thám Tử Sherlock Holmes"
                         },
                         new
                         {
                             Id = 2,
-                            Author = "Nancy Hoover",
+                            Author = "Lee Child",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "CAW777777701",
-                            ImageUrl = "",
-                            ListPrice = 40000,
-                            Price = 35000,
-                            Price100 = 30000,
-                            Price50 = 32000,
-                            Title = "Dark Skies"
+                            Description = "The gripping new Jack Reacher thriller from the #1 New York Times bestselling authors Lee Child and Andrew Child A string of mysterious deaths. A long-classified mission. A young MP with nothing to lose. 1992. All across the United States respectable, upstanding citizens are showing up dead. These deaths could be accidents, and they don’t appear to be connected—until a fatal fall from a high-floor window attracts some unexpected attention. That attention comes from the secretary of defense. All of a sudden he wants an interagency task force to investigate. And he wants Jack Reacher as the army’s representative. If Reacher gets a result, great. If not, he’s a convenient fall guy. But office politics isn’t Reacher’s thing.",
+                            ISBN = "9780593871454",
+                            ImageUrl = "/images/product/jack_reacher.jpg",
+                            ListPrice = 197000,
+                            Price = 180000,
+                            Price100 = 140000,
+                            Price50 = 160000,
+                            Title = "Jack Reacher - Book 28 - The Secret"
                         },
                         new
                         {
                             Id = 3,
-                            Author = "Julian Button",
+                            Author = "Suzanne Collins",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "RITO5555501",
-                            ImageUrl = "",
-                            ListPrice = 55000,
-                            Price = 50000,
-                            Price100 = 40000,
-                            Price50 = 45000,
-                            Title = "Vanish in the Sunset"
+                            Description = "This beautiful paperback box set includes all three books in Suzanne Collins's internationally bestselling Hunger Games trilogy together with The Ballad of Songbirds and Snakes.\r\n\r\nIn the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV... And the odds are against all who play. With all four of Suzanne Collins's Hunger Games novels in one box set, you can step into the world of Panem with the 10th annual Hunger Games, and continue all the way to the electrifying conclusion.",
+                            ISBN = "9781339042657-bq",
+                            ImageUrl = "/images/product/hunger_games.jpg",
+                            ListPrice = 1173300,
+                            Price = 1000000,
+                            Price100 = 800000,
+                            Price50 = 950000,
+                            Title = "The Hunger Games Box Set (Book 1 - 4)"
                         },
                         new
                         {
                             Id = 4,
-                            Author = "Abby Muscles",
+                            Author = "Frank Herbert",
                             CategoryId = 2,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "WS3333333301",
-                            ImageUrl = "",
-                            ListPrice = 70000,
-                            Price = 65000,
-                            Price100 = 55000,
-                            Price50 = 60000,
-                            Title = "Cotton Candy"
+                            Description = "Perfect for longtime fans and new readers alike—a beautiful premium mass market boxed set of the first three novels in Frank Herbert's Dune Saga.\r\n\r\nIn the far future, on a remote planet, an epic adventure awaits. Here are the first three novels of Frank Herbert’s magnificent Dune saga—a triumph of the imagination and one of the bestselling science fiction series of all time.",
+                            ISBN = "9780593201893-bq",
+                            ImageUrl = "/images/product/dune.jpg",
+                            ListPrice = 590000,
+                            Price = 550000,
+                            Price100 = 400000,
+                            Price50 = 500000,
+                            Title = "Dune Saga Boxed Set (Book 1 - 3)"
                         },
                         new
                         {
                             Id = 5,
-                            Author = "Ron Parker",
+                            Author = "J.K. Rowling",
                             CategoryId = 2,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "SOTJ1111111101",
-                            ImageUrl = "",
-                            ListPrice = 30000,
-                            Price = 27000,
-                            Price100 = 20000,
-                            Price50 = 25000,
-                            Title = "Rock in the Ocean"
+                            Description = "An irresistible romp through the history of magic, from alchemy to unicorns, ancient witchcraft to Harry's Hogwarts - packed with unseen sketches and manuscript pages from J.K. Rowling, magical illustrations from Jim Kay and weird, wonderful and inspiring artefacts that have been magically released from the archives at the British Library.\r\n\r\nThis spellbinding book takes readers on a journey through the Hogwarts curriculum, including Herbology, Defence Against the Dark Arts, Astronomy, Divination and more. Discover the truth behind making the Philosopher's Stone, create your very own potion and uncover the secret of invisible ink. Learn all about the history of mandrake roots and dragons, discover what witches really used their brooms for, pore over incredible images of actual mermaids and read about real-life potions, astronomers and alchemists.\r\n\r\nThe perfect gift for aspiring witches and wizards and any Harry Potter fan. Celebrating twenty years of Harry Potter magic, and produced in association with the British Library to support their major exhibition, Harry Potter: A History of Magic.",
+                            ISBN = "9781408890776",
+                            ImageUrl = "/images/product/harry_potter.jpg",
+                            ListPrice = 365000,
+                            Price = 320000,
+                            Price100 = 250000,
+                            Price50 = 280000,
+                            Title = "Harry Potter - A History of Magic"
                         },
                         new
                         {
                             Id = 6,
-                            Author = "Laura Phantom",
+                            Author = "Trần Trọng Kim",
                             CategoryId = 3,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "FOT000000001",
-                            ImageUrl = "",
-                            ListPrice = 25000,
-                            Price = 23000,
-                            Price100 = 20000,
-                            Price50 = 22000,
-                            Title = "Leaves and Wonders"
+                            Description = "Trần Trọng Kim (1883 - 1953) là một học giả danh tiếng đầu thế kỷ XX, cùng thời với những tên tuổi lớn như Phạm Quỳnh, Nguyễn Văn Vĩnh… Với bút hiệu Lệ Thần, ông đã có nhiều thành tựu trong lĩnh vực khảo cứu, biên soạn, dịch thuật, để lại cho đời nhiều tác phẩm có giá trị về lịch sử, văn hóa như Việt Nam sử lược, Việt Nam văn phạm, Nho giáo...\r\n\r\nViệt Nam sử lược là cuốn sách lịch sử Việt Nam đầu tiên viết bằng chữ quốc ngữ, hệ thống lại toàn bộ lịch sử nước Việt (cho đến thời kỳ Pháp thuộc).",
+                            ISBN = "8935236412926",
+                            ImageUrl = "/images/product/su_vn.jpg",
+                            ListPrice = 175000,
+                            Price = 155000,
+                            Price100 = 100000,
+                            Price50 = 125000,
+                            Title = "Việt Nam Sử Lược (Tái bản 2022)"
                         });
+                });
+
+            modelBuilder.Entity("Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Models.ApplicationUser", b =>
@@ -552,6 +684,36 @@ namespace DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Models.OrderDetail", b =>
+                {
+                    b.HasOne("Models.OrderHeader", "OrderHeader")
+                        .WithMany()
+                        .HasForeignKey("OrderHeaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrderHeader");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Models.OrderHeader", b =>
+                {
+                    b.HasOne("Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
             modelBuilder.Entity("Models.Product", b =>
                 {
                     b.HasOne("Models.Category", "Category")
@@ -561,6 +723,25 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Models.ShoppingCart", b =>
+                {
+                    b.HasOne("Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Models.ApplicationUser", b =>
