@@ -1,6 +1,6 @@
-Họ tên: Huỳnh Quốc Hưng
-MSSV: 3121410239
-Project: Webite bán sách
+Họ tên: Huỳnh Quốc Hưng 
+MSSV: 3121410239 
+Project: Webite bán sách 
 
 *CÁCH CÀI ĐẶT PROJECT:
 B1: Mở Microsoft SQL Server kết nối và sao chép Server name
