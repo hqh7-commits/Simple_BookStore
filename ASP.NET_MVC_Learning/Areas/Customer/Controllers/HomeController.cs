@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
 using Utility;
@@ -21,10 +22,31 @@ namespace ASP.NET_MVC_Learning.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchTerm = "", int page = 1)
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties:"Category");
-            return View(productList);
+            int pageSize = 8; 
+
+            var filteredProducts = _unitOfWork.Product.GetAll(includeProperties: "Category")
+                .Where(p => string.IsNullOrEmpty(searchTerm) || p.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+            int totalItems = filteredProducts.Count();
+
+            var productList = filteredProducts
+                .Skip((page - 1) * pageSize) 
+                .Take(pageSize) 
+                .ToList();
+
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var viewModel = new ProductViewModel
+            {
+                Products = productList,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchTerm = searchTerm
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Details(int productId)
