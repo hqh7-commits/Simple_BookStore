@@ -20,6 +20,7 @@ B4: Gõ update-database để khởi tạo cơ sở dữ liệu mặc định
 B5: Bấm F5 chạy project sẽ khởi tạo sẵn tài khoản admin trong database
 
 email: admin@gmail.com
+
 password: Admin123*
 
 *CÁC CHỨC NĂNG:
